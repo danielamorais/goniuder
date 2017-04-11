@@ -10,9 +10,8 @@ import (
 
 func main() {
 	http.HandleFunc("/login", routers)
-	http.Handle("/static/stylesheets/", http.StripPrefix("/static/stylesheets/", http.FileServer(http.Dir("/static/stylesheets"))))
-	http.Handle("/static/js/", http.StripPrefix("/static/js/", http.FileServer(http.Dir("http/js"))))
-
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.ListenAndServe(":8080", nil)
 }
 
